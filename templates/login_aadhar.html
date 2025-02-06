@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Aadhaar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .flash-messages {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login with Aadhaar</h2>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-messages {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/login_aadhar" method="POST">
+        <label for="aadhar">Aadhaar Number</label>
+        <input type="text" id="aadhar" name="aadhar" placeholder="Enter 12-digit Aadhaar Number" pattern="\d{12}" required>
+        <button type="submit">Send OTP</button>
+        <div class="register-now">
+            <p>Login using E-mail? 
+                <a href="{{ url_for('login') }}">Click here</a>
+            </p>
+        </div>
+        <div class="register-now">
+            <p>Not an existing user? 
+                <a href="{{ url_for('register') }}">Register!</a>
+            </p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

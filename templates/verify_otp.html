@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .otp-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .resend-otp {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .resend-otp a {
+            color: #8e44ad;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .resend-otp a:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .flash-message {
+            color: red;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="otp-container">
+    <h2>Enter OTP</h2>
+    
+    <!-- Display the flash message if it exists -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-message">
+                {% for category, message in messages %}
+                    {% if category == 'danger' %}
+                        <p>{{ message }}</p>  <!-- Display error messages like "Invalid OTP" -->
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <form action="/verify_otp" method="POST">
+        <input type="text" name="otp" placeholder="Enter OTP" required maxlength="6">
+        <button type="submit">Verify</button>
+    </form>
+    <div class="resend-otp">
+        <a href="/resend_otp">Resend OTP</a>
+    </div>
+</div>
+
+</body>
+</html>
