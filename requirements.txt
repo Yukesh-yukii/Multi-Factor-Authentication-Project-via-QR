@@ -1,0 +1,10 @@
+Flask==3.0.0
+Flask-Session==0.5.0
+Flask-MySQLdb==1.0.1
+Flask-Mail==0.9.1
+pymysql==1.1.0
+MySQL-python==1.2.5
+cryptography==42.0.2
+pyotp==2.9.0
+qrcode==7.4.2
+werkzeug==3.0.1
